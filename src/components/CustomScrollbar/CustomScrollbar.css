@@ -1,0 +1,47 @@
+.custom-scrollbar-container {
+  position: relative;
+
+  width: 600px;
+  height: 400px;
+
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  user-select: none;
+}
+
+.custom-scrollbar-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 100%;
+  padding: 20px 30px;
+
+  color: var(--light-color);
+  line-height: 1.7;
+
+  background: var(--dark-color);
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.custom-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  z-index: 10;
+  background-color: var(--thumb-color);
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.custom-scrollbar-container::-webkit-scrollbar {
+  display: none;
+}
