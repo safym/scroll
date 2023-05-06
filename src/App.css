@@ -2,15 +2,27 @@
   box-sizing: border-box;
 }
 
+ntml,
+body,
+.root,
+.App {
+  overflow: hidden;
+}
+
 :root {
   --dark-color: rgb(44, 44, 55);
   --light-color: #f0ddff;
   --thumb-color: #a194ab;
+
+  --primaryColor: #ff6a9f;
+  --primaryColorLight: #faa8c5;
+  --primaryColorDark: #ae4d77;
+  --secondaryColor: #8cc9e8;
 }
 
 .App {
   min-height: 100vh;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;

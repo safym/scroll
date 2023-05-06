@@ -51,7 +51,7 @@ const CustomScrollbar = ({ children }) => {
         if (containerPos.height >= newTop + thumbHeight && 0 <= newTop) {
           const direction = -1;
           const contentTop = Math.round(
-            (newTop * contentPos.height * direction) / containerPos.height 
+            (newTop * contentPos.height * direction) / containerPos.height
           );
 
           setThumbTop(newTop);
@@ -93,16 +93,19 @@ const CustomScrollbar = ({ children }) => {
 
   return (
     <div className="custom-scrollbar-container" ref={containerRef}>
-      <div
-        className="custom-scrollbar-content"
-        ref={contentRef}
-        style={{
-          position: "absolute",
-          top: `${contentTop}px`,
-        }}
-      >
-        {children}
+      <div className="custom-scrollbar-content-wrapper">
+        <div
+          className="custom-scrollbar-content"
+          ref={contentRef}
+          style={{
+            position: "absolute",
+            top: `${contentTop}px`,
+          }}
+        >
+          {children}
+        </div>
       </div>
+
       <div
         className="custom-scrollbar-thumb"
         onMouseDown={handleMouseDown}
@@ -113,6 +116,7 @@ const CustomScrollbar = ({ children }) => {
         }}
         ref={thumbRef}
       ></div>
+      <div className="custom-scrollbar-line"/>
     </div>
   );
 };
