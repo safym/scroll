@@ -2,17 +2,24 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import "./CustomScrollbar.css";
 
 const CustomScrollbar = ({ children }) => {
+  // Elements refs
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const thumbRef = useRef(null);
 
+  // Dragging state
   const [dragging, setDragging] = useState(false);
 
+  // Offset by mouse/touch events (px)
   const [offsetY, setOffsetY] = useState(0);
+  // Scrolbar thumb height
   const [thumbHeight, setThumbHeight] = useState(0);
+  // Top position of thumb relative to the scrollable block (px)
   const [thumbTop, setThumbTop] = useState(0);
+  // Top position of content relative to the scrollable block (px)
   const [contentTop, setContentTop] = useState(0);
 
+  // Handler of mousedown/touchstart events
   const handleMouseDown = (event) => {
     setDragging(true);
     let offset;
@@ -26,6 +33,7 @@ const CustomScrollbar = ({ children }) => {
     setOffsetY(offset);
   };
 
+  // Handler of mousemove/touchmove events
   const handleMouseMove = useCallback(
     (event) => {
       if (dragging) {
@@ -41,8 +49,9 @@ const CustomScrollbar = ({ children }) => {
         let contentPos = contentRef.current.getBoundingClientRect();
 
         if (containerPos.height >= newTop + thumbHeight && 0 <= newTop) {
+          const direction = -1;
           const contentTop = Math.round(
-            (newTop * contentPos.height) / containerPos.height
+            (newTop * contentPos.height * direction) / containerPos.height 
           );
 
           setThumbTop(newTop);
@@ -53,10 +62,12 @@ const CustomScrollbar = ({ children }) => {
     [dragging, offsetY, thumbHeight]
   );
 
+  // Handler of mouseup/touchend events
   const handleMouseUp = () => {
     setDragging(false);
   };
 
+  // Set the thumb height depending on the height of the content
   useEffect(() => {
     const containerHeight = containerRef.current.clientHeight;
     const contentHeight = contentRef.current.clientHeight;
@@ -65,6 +76,7 @@ const CustomScrollbar = ({ children }) => {
     setThumbHeight(Math.round(height));
   }, [containerRef, contentRef, thumbRef]);
 
+  // Add eventlisteners
   useEffect(() => {
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("touchend", handleMouseUp);
@@ -86,7 +98,7 @@ const CustomScrollbar = ({ children }) => {
         ref={contentRef}
         style={{
           position: "absolute",
-          top: `-${contentTop}px`,
+          top: `${contentTop}px`,
         }}
       >
         {children}
